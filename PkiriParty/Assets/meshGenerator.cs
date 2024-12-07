@@ -1,36 +1,82 @@
+using System;
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TerrainGenerator : MonoBehaviour
 {
-    public int width = 256;
-    public int depth = 20;
-    public int height = 256;
-    public float scale = 20f;
+    Mesh mesh;
 
+    Vector3[] vertices;
+    int[] triangles;
+
+    public int xSize = 20;
+    public int zSize = 20;
+
+    // Use this for initialization
     void Start()
     {
-        Terrain terrain = GetComponent<Terrain>();
-        terrain.terrainData = GenerateTerrain(terrain.terrainData);
-    }
+        mesh = new Mesh();
+        GetComponent<MeshFilter>().mesh = mesh;
+        CreateShape();
+        UpdateMesh();
 
-    TerrainData GenerateTerrain(TerrainData terrainData)
-    {
-        terrainData.heightmapResolution = width + 1;
-        terrainData.size = new Vector3(width, depth, height);
-        terrainData.SetHeights(0, 0, GenerateHeights());
-        return terrainData;
     }
+    
 
-    float[,] GenerateHeights()
+    private void UpdateMesh()
     {
-        float[,] heights = new float[width, height];
-        for (int x = 0; x < width; x++)
+        mesh.Clear();
+
+        mesh.vertices = vertices;
+        mesh.triangles = triangles;
+
+        mesh.RecalculateNormals();
+    }
+  
+
+
+    void CreateShape()
+    {
+        vertices = new Vector3[(xSize + 1) * (zSize + 1)];
+
+        for (int i = 0, z = 0; z <= zSize; z++)
         {
-            for (int y = 0; y < height; y++)
+            for (int x = 0; x <= xSize; x++)
             {
-                heights[x, y] = Mathf.PerlinNoise(x / scale, y / scale);
+                float y = Mathf.PerlinNoise(x * .3f, z * .3f) * 2f ;
+                vertices[i] = new Vector3(x, y, z);
+                i++;
             }
         }
-        return heights;
+
+        triangles = new int[xSize * zSize * 6];
+
+        int vert = 0;
+        int tris = 0;
+        for (int z = 0; z < zSize; z++)
+        {
+            for (int x = 0; x < xSize; x++)
+            {
+                triangles[tris + 0] = vert + 0;
+                triangles[tris + 1] = vert + xSize + 1;
+                triangles[tris + 2] = vert + 1;
+                triangles[tris + 3] = vert + 1;
+                triangles[tris + 4] = vert + xSize + 1;
+                triangles[tris + 5] = vert + xSize + 2;
+
+                vert++;
+                tris += 6;
+
+                 
+            }
+            vert++;
+        }
+       
+
+      
+
+
+
     }
 }
