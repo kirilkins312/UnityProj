@@ -43,7 +43,7 @@ public class MapGenerator : MonoBehaviour
     Queue<MapThreadInfo<MapData>> mapDataThreadInfoQueue = new Queue<MapThreadInfo<MapData>>();
     Queue<MapThreadInfo<MeshData>> meshDataThreadInfoQueue = new Queue<MapThreadInfo<MeshData>>();
 
-   
+    [Obsolete]
     public static int mapChunkSize
     {
         get
@@ -64,6 +64,7 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
+    [Obsolete]
     public void DrawMapInEditor()
     {
         MapData mapData = GenerateMapData(Vector2.zero);
@@ -84,6 +85,7 @@ public class MapGenerator : MonoBehaviour
         
     }
 
+    [Obsolete]
     public void RequestMapData(Vector2 centre, Action<MapData> callback)
     {
         ThreadStart threadStart = delegate {
@@ -93,6 +95,7 @@ public class MapGenerator : MonoBehaviour
         new Thread(threadStart).Start();
     }
 
+    [Obsolete]
     void MapDataThread(Vector2 centre, Action<MapData> callback)
     {
         MapData mapData = GenerateMapData(centre);
@@ -141,6 +144,7 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
+    [Obsolete]
     MapData GenerateMapData(Vector2 centre)
     {
         float[,] noiseMap = Noise.GenerateNoiseMap(mapChunkSize + 2, mapChunkSize + 2, seed, noiseScale, octaves, persistance, lacunarity, centre + offset, normalizeMode);
