@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: PrefabPlacementSettings
+  m_EditorClassIdentifier: Assembly-CSharp::PrefabPlacementSettings
+  prefabCategories:
+  - Name: Rain
+    Prefab: {fileID: 8877110608346570714, guid: 995b41cc96a18714f8ec24ccd77ac45e, type: 3}
+    Count: 100
+    SpawnAreaMin: {x: 10, y: 10}
+    SpawnAreaMax: {x: 1000, y: 1000}
+  - Name: Rain
+    Prefab: {fileID: 8877110608346570714, guid: 995b41cc96a18714f8ec24ccd77ac45e, type: 3}
+    Count: 100
+    SpawnAreaMin: {x: 10, y: 10}
+    SpawnAreaMax: {x: 1000, y: 1000}
